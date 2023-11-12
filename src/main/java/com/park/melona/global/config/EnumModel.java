@@ -1,7 +1,7 @@
 package com.park.melona.global.config;
 
 public interface EnumModel {
-    String getKey();
+	String getKey();
 
-    String getValue();
+	String getValue();
 }
