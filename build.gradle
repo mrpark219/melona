@@ -48,7 +48,7 @@ jooq {
             generateSchemaSourceOnCompilation = true
 
             generationTool {
-                logging = Logging.WARN
+                logging = Logging.DEBUG
                 jdbc {
                     driver = 'com.mysql.cj.jdbc.Driver'
                     url = 'jdbc:mysql://localhost:3306?serverTimezone=UTC&characterEncoding=UTF-8'

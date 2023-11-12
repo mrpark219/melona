@@ -1,6 +1,22 @@
+logging:
+  config: classpath:logback/logback-spring.xml
+
+server:
+  tomcat:
+    max-swallow-size: 5GB
+  port: 8080
+
 spring:
+  profiles:
+    default: dev
+  servlet:
+    multipart:
+      max-file-size: 5GB
+      max-request-size: 5GB
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/melona?serverTimezone=UTC&characterEncoding=UTF-8
     username: melona
     password: 1234
+  config:
+    import: api.yml
