@@ -47,6 +47,8 @@ public class SubwayStationLineService {
 				.map(enumValue -> SubwayStationLineListResponse.builder()
 						.subwayLineId(enumValue.getKey())
 						.subwayLineName(enumValue.getValue())
+						.startingStationName(SubwayStationLineType.getStartingStationNameByKey(enumValue.getKey()))
+						.terminusStationName(SubwayStationLineType.getTerminusStationNameByKey(enumValue.getKey()))
 						.build())
 				.collect(Collectors.toList());
 	}

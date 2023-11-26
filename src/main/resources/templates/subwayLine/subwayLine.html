@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html
+        lang="ko" xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout/layout}">
+<head>
+    <title>지하철 목록</title>
+</head>
+<div class="container text-center" layout:fragment="content">
+    <nav class="navbar fixed-top navbar-light bg-light">
+        <a href="home.html" class="btn btn-light">
+            <i class="fas fa-chevron-left"></i>
+        </a>
+        <h2 class="centered-title" th:text="${subwayStationLineType.value}">1호선</h2>
+    </nav>
+    <div class="timeline" th:classappend="${subwayStationLineType.key}">
+        <div class="station" th:each="subwayStation : ${subwayStationList}" th:onclick="|location.href='@{/arrival-information/{stationId}(stationId=${subwayStation.getStationId()})}'|">
+            <div class="station-node in">
+                <i class="fas fa-angle-down"></i>
+            </div>
+            <div class="station-node out">
+                <i class="fas fa-angle-up"></i>
+            </div>
+            <span class="station-name" th:text="${subwayStation.stationName}"></span>
+        </div>
+    </div>
+</div>
+</html>

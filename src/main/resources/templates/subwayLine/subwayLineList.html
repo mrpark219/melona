@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html
+        lang="ko" xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout/layout}">
+<head>
+    <title>지하철 목록</title>
+</head>
+<div layout:fragment="content" class="container text-center">
+    <h2 class="mb-4">노선</h2>
+    <div class="row">
+        <div class="col-6 mb-4" th:each="subwayStationLine : ${subwayStationLineListResponseList}">
+            <div class="metro-card" th:classappend="${subwayStationLine.subwayLineId}" th:onclick="|location.href='@{/lines/{subwayLineId}(subwayLineId=${subwayStationLine.subwayLineId})}'|">
+                <span class="line-number" th:text="${subwayStationLine.subwayLineName}">1호선</span>
+                <span class="line-detail" th:text="${subwayStationLine.startingStationName} + '~' + ${subwayStationLine.terminusStationName}">소요산 - 인천/신창</span>
+                <div class="color-bar"></div>
+            </div>
+        </div>
+    </div>
+</div>
+</html>
