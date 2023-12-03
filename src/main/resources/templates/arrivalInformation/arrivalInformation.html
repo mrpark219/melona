@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html
+        lang="ko" xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout/layout}">
+<head>
+    <title>지하철 목록</title>
+</head>
+<body>
+<div layout:fragment="content">
+
+    <div class="station-detail-header">
+        <a class="btn btn-light" th:href="@{/lines/{subwayId}(subwayId=${subwayStationLineType.name})}">
+            <i class="fas fa-chevron-left"></i>
+        </a>
+        <h4 th:text="${subwayStationLineType.value}">1호선</h4>
+    </div>
+
+    <div class="station-detail-container">
+        <div class="prev-station">
+            <button class="station-button" th:each="previousStationInformation : ${arrivalInformationResponse.previousStationInformationList}" th:onclick="|location.href='@{/arrival-information/{subwayId}/{stationId}(subwayId=${subwayStationLineType.name}, stationId=${previousStationInformation.stationId})}'|">
+                <span class="arrow-icon left">&#9664;</span>
+                <span class="station-name" th:text="${previousStationInformation.stationName}">이전 역</span>
+            </button>
+        </div>
+        <div class="current-station line-placeholder">
+            <span class="station-name" th:text="${arrivalInformationResponse.currentStationInformation.stationName}">현재 역</span>
+        </div>
+        <div class="next-station">
+            <button class="station-button" th:each="nextStationInformation : ${arrivalInformationResponse.nextStationInformationList}" th:onclick="|location.href='@{/arrival-information/{subwayId}/{stationId}(subwayId=${subwayStationLineType.name}, stationId=${nextStationInformation.stationId})}'|">
+                <span class="station-name" th:text="${nextStationInformation.stationName}">다음 역</span>
+                <span class="arrow-icon right">&#9654;</span>
+            </button>
+        </div>
+    </div>
+    <div class="direction-section">
+        <div class="direction-block">
+            <h3>상행/내선 방면</h3>
+            <div class="arrival-time"
+                 th:if="${!subwayStationLineType.name.equals('LINE_1002') && !subwayStationLineType.name.equals('LINE_1003')}"
+                 th:each="upLineArrivalInformation : ${arrivalInformationResponse.upLineArrivalInformationList}"
+                 th:onclick="alert('서비스 준비 중입니다.')">
+                <span class="station-arrival-name" th:text="|${upLineArrivalInformation.terminusStationName}행 - ${upLineArrivalInformation.currentStationName}|">신도림</span>
+                <span class="station-arrival-remaining-time" th:text="${upLineArrivalInformation.etaString}">3분</span>
+            </div>
+            <div class="arrival-time"
+                 th:if="${subwayStationLineType.name.equals('LINE_1002') || subwayStationLineType.name.equals('LINE_1003')}"
+                 th:each="upLineArrivalInformation : ${arrivalInformationResponse.upLineArrivalInformationList}"
+                 th:onclick="|location.href='@{/congestion/{trainNo}(trainNo=${upLineArrivalInformation.trainNo})}'|">
+                <span class="station-arrival-name" th:text="|${upLineArrivalInformation.terminusStationName}행 - ${upLineArrivalInformation.currentStationName}|">신도림</span>
+                <span class="station-arrival-remaining-time" th:text="${upLineArrivalInformation.etaString}">3분</span>
+            </div>
+        </div>
+        <div class="direction-block">
+            <h3>하행/외선 방면</h3>
+            <div class="arrival-time"
+                 th:if="${subwayStationLineType.name.equals('LINE_1002') || subwayStationLineType.name.equals('LINE_1003')}"
+                 th:each="downLineArrivalInformation : ${arrivalInformationResponse.downLineArrivalInformationList}"
+                 th:onclick="alert('서비스 준비 중입니다.')">
+                <span class="station-arrival-name" th:text="|${downLineArrivalInformation.terminusStationName}행 - ${downLineArrivalInformation.currentStationName}|">신도림</span>
+                <span class="station-arrival-remaining-time" th:text="${downLineArrivalInformation.etaString}">3분</span>
+            </div>
+            <div class="arrival-time"
+                 th:if="${!subwayStationLineType.name.equals('LINE_1002') && !subwayStationLineType.name.equals('LINE_1003')}"
+                 th:each="downLineArrivalInformation : ${arrivalInformationResponse.downLineArrivalInformationList}"
+                 th:onclick="|location.href='@{/congestion/{trainNo}(trainNo=${downLineArrivalInformation.trainNo})}'|">
+                <span class="station-arrival-name" th:text="|${downLineArrivalInformation.terminusStationName}행 - ${downLineArrivalInformation.currentStationName}|">신도림</span>
+                <span class="station-arrival-remaining-time" th:text="${downLineArrivalInformation.etaString}">3분</span>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

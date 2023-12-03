@@ -15,7 +15,7 @@
         <h2 class="centered-title" th:text="${subwayStationLineType.value}">1호선</h2>
     </nav>
     <div class="timeline" th:classappend="${subwayStationLineType.key}">
-        <div class="station" th:each="subwayStation : ${subwayStationList}" th:onclick="|location.href='@{/arrival-information/{stationId}(stationId=${subwayStation.getStationId()})}'|">
+        <div class="station" th:each="subwayStation : ${subwayStationList}" th:onclick="|location.href='@{/arrival-information/{subwayId}/{stationId}(subwayId=${subwayStationLineType.name}, stationId=${subwayStation.getStationId()})}'|">
             <div class="station-node in">
                 <i class="fas fa-angle-down"></i>
             </div>

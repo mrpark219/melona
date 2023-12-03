@@ -27,4 +27,33 @@ public class SubwayStationLineRepository {
 				.fetch()
 				.into(SubwayStation.class);
 	}
+
+	public SubwayStation selectSubwayStationByStationId(Integer stationId) {
+		return dslContext
+				.fetchSingle(SUBWAY_STATION, SUBWAY_STATION.STATION_ID.eq(stationId))
+				.into(SubwayStation.class);
+	}
+
+	public List<SubwayStation> selectPreviousSubwayStation(Integer stationId) {
+		return dslContext
+				.select(SUBWAY_STATION.as("ss2").STATION_ID, SUBWAY_STATION.as("ss2").SUBWAY_ID,
+						SUBWAY_STATION.as("ss2").STATION_NAME, SUBWAY_STATION.as("ss2").PREVIOUS_STATION_ID,
+						SUBWAY_STATION.as("ss2").FR_CODE)
+				.from(SUBWAY_STATION.as("ss1"))
+				.join(SUBWAY_STATION.as("ss2"))
+				.on(SUBWAY_STATION.as("ss1").PREVIOUS_STATION_ID.eq(SUBWAY_STATION.as("ss2").STATION_ID)
+						.and(SUBWAY_STATION.as("ss1").STATION_ID.eq(stationId)))
+				.fetch()
+				.into(SubwayStation.class);
+	}
+
+	public List<SubwayStation> selectNextSubwayStation(Integer stationId) {
+		return dslContext
+				.select(SUBWAY_STATION.STATION_ID, SUBWAY_STATION.SUBWAY_ID, SUBWAY_STATION.STATION_NAME,
+						SUBWAY_STATION.PREVIOUS_STATION_ID, SUBWAY_STATION.FR_CODE)
+				.from(SUBWAY_STATION)
+				.where(SUBWAY_STATION.PREVIOUS_STATION_ID.eq(stationId))
+				.fetch()
+				.into(SubwayStation.class);
+	}
 }
