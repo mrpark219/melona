@@ -9,7 +9,7 @@
 <body>
 <div class="container text-center" layout:fragment="content">
     <nav class="navbar fixed-top navbar-light bg-light">
-        <a href="home.html" class="btn btn-light">
+        <a class="btn btn-light" th:href="@{/lines}">
             <i class="fas fa-chevron-left"></i>
         </a>
         <h2 class="centered-title" th:text="${subwayStationLineType.value}">1호선</h2>

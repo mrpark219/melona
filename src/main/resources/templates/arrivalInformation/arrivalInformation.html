@@ -23,7 +23,7 @@
                 <span class="station-name" th:text="${previousStationInformation.stationName}">이전 역</span>
             </button>
         </div>
-        <div class="current-station line-placeholder">
+        <div class="current-station line-placeholder" th:classappend="${subwayStationLineType.name}">
             <span class="station-name" th:text="${arrivalInformationResponse.currentStationInformation.stationName}">현재 역</span>
         </div>
         <div class="next-station">

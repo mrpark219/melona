@@ -13,17 +13,15 @@ public enum SubwayStationLineType implements EnumModel {
 	LINE_1006("6호선", "응암", "신내"),
 	LINE_1007("7호선", "장암", "부평구청"),
 	LINE_1008("8호선", "암사", "모란"),
-	LINE_1009("9호선", "개화", "중앙보훈병원");
-
-	/*LINE_1061("중앙선", startingStationName, terminusStationName),
-	LINE_1063("경의중앙선", startingStationName, terminusStationName),
-	LINE_1065("공항철도", startingStationName, terminusStationName),
-	LINE_1067("경춘선", startingStationName, terminusStationName),
-	LINE_1075("수의분당선", startingStationName, terminusStationName),
-	LINE_1077("신분당선", startingStationName, terminusStationName),
-	LINE_1092("우이신설선", startingStationName, terminusStationName),
-	LINE_1093("서해선", startingStationName, terminusStationName),
-	LINE_1081("경강선", startingStationName, terminusStationName);*/
+	LINE_1009("9호선", "개화", "중앙보훈병원"),
+	LINE_1063("경의중앙선", "문산", "지평"),
+	LINE_1065("공항철도", "서울역", "인천공항2터미널"),
+	LINE_1067("경춘선", "청량리", "춘천"),
+	LINE_1075("수인분당선", "청량리", "인천"),
+	LINE_1077("신분당선", "신사", "광교"),
+	LINE_1092("우이신설선", "북한산우이", "신설동"),
+	LINE_1093("서해선", "대곡", "원시"),
+	LINE_1081("경강선", "판교", "여주");
 
 	private final String value;
 

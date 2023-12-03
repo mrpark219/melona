@@ -88,6 +88,38 @@ body {
     background-color: #A17E46;
 }
 
+.LINE_1063 .color-bar {
+    background-color: #7cc4a5;
+}
+
+.LINE_1065 .color-bar {
+    background-color: #73b6e4;
+}
+
+.LINE_1067 .color-bar {
+    background-color: #08af7b;
+}
+
+.LINE_1075 .color-bar {
+    background-color: #EBA900;
+}
+
+.LINE_1077 .color-bar {
+    background-color: #a71e31;
+}
+
+.LINE_1092 .color-bar {
+    background-color: #c6c100;
+}
+
+.LINE_1093 .color-bar {
+    background-color: #8bc53f;
+}
+
+.LINE_1081 .color-bar {
+    background-color: #2673f2;
+}
+
 /* 타임라인 스타일 */
 .timeline {
     position: relative;
@@ -174,6 +206,38 @@ body {
 
 .LINE_1009.timeline::before, .LINE_1009.timeline::after {
     background-color: #A17E46;
+}
+
+.LINE_1063.timeline::before, .LINE_1063.timeline::after {
+    background-color: #7cc4a5;
+}
+
+.LINE_1065.timeline::before, .LINE_1065.timeline::after {
+    background-color: #73b6e4;
+}
+
+.LINE_1067.timeline::before, .LINE_1067.timeline::after {
+    background-color: #08af7b;
+}
+
+.LINE_1075.timeline::before, .LINE_1075.timeline::after {
+    background-color: #EBA900;
+}
+
+.LINE_1077.timeline::before, .LINE_1077.timeline::after {
+    background-color: #a71e31;
+}
+
+.LINE_1092.timeline::before, .LINE_1092.timeline::after {
+    background-color: #c6c100;
+}
+
+.LINE_1093.timeline::before, .LINE_1093.timeline::after {
+    background-color: #8bc53f;
+}
+
+.LINE_1081.timeline::before, .LINE_1081.timeline::after {
+    background-color: #2673f2;
 }
 
 
@@ -299,41 +363,72 @@ body {
 }
 
 .station-detail-container .current-station.LINE_1001 {
-    border: 5px solid #0052A4; /* 1호선 색상 */
+    border: 5px solid #0052A4;
 }
 
 .station-detail-container .current-station.LINE_1002 {
-    border: 5px solid #009D3E; /* 2호선 색상 */
+    border: 5px solid #009D3E;
 }
 
 .station-detail-container .current-station.LINE_1003 {
-    border: 5px solid #EF7C1C; /* 3호선 색상 */
+    border: 5px solid #EF7C1C;
 }
 
 .station-detail-container .current-station.LINE_1004 {
-    border: 5px solid #00A5DE; /* 4호선 색상 */
+    border: 5px solid #00A5DE;
 }
 
 .station-detail-container .current-station.LINE_1005 {
-    border: 5px solid #996CAC; /* 5호선 색상 */
+    border: 5px solid #996CAC;
 }
 
 .station-detail-container .current-station.LINE_1006 {
-    border: 5px solid #CD7C2F; /* 6호선 색상 */
+    border: 5px solid #CD7C2F;
 }
 
 .station-detail-container .current-station.LINE_1007 {
-    border: 5px solid #747F00; /* 7호선 색상 */
+    border: 5px solid #747F00;
 }
 
 .station-detail-container .current-station.LINE_1008 {
-    border: 5px solid #EA545D; /* 8호선 색상 */
+    border: 5px solid #EA545D;
 }
 
 .station-detail-container .current-station.LINE_1009 {
-    border: 5px solid #A17E46; /* 9호선 색상 */
+    border: 5px solid #A17E46;
 }
 
+.station-detail-container .current-station.LINE_1063 {
+    border: #7cc4a5;
+}
+
+.station-detail-container .current-station.LINE_1065 {
+    border: #73b6e4;
+}
+
+.station-detail-container .current-station.LINE_1067 {
+    border: #08af7b;
+}
+
+.station-detail-container .current-station.LINE_1075 {
+    border: #EBA900;
+}
+
+.station-detail-container .current-station.LINE_1077 {
+    border: #a71e31;
+}
+
+.station-detail-container .current-station.LINE_1092 {
+    border: #c6c100;
+}
+
+.station-detail-container .current-station.LINE_1093 {
+    border: #8bc53f;
+}
+
+.station-detail-container .current-station.LINE_1081 {
+    border: #2673f2;
+}
 
 .station-detail-container .prev-station, .station-detail-container .next-station {
     font-size: 0.8em;
