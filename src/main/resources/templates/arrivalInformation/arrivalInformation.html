@@ -5,6 +5,59 @@
         layout:decorate="~{layout/layout}">
 <head>
     <title>지하철 목록</title>
+    <script type="text/javascript">
+
+        async function getCongestion(subwayId, trainNo) {
+
+            try {
+                const response = await fetch(`/api/congestion/${subwayId}/${trainNo}`);
+                const jsonData = await response.json();
+
+                let html = '';
+                jsonData.congestionCarList.forEach((element, index) => {
+                    html += `<div class="train ${getCongestionStatus(element)}">${index + 1}</div>`;
+                });
+
+                document.getElementById("congestionDiv").innerHTML = html;
+
+                openPopup();
+            }
+            catch (err) {
+                alert('실시간 혼잡도를 불러오는 과정에서 오류가 발생하였습니다.');
+            }
+        }
+
+        function getCongestionStatus(congestion) {
+            const congestionNumber = Number(congestion);
+
+            if (congestionNumber <= 32) {
+                return 'free';
+            }
+            else if (congestionNumber <= 100) {
+                return 'normal';
+            }
+            else if (congestionNumber <= 150) {
+                return 'caution';
+            }
+            else {
+                return 'congested';
+            }
+        }
+
+        function openPopup() {
+            let popup = document.getElementById("popup");
+            let popupBackground = document.getElementById("popupBackground");
+            popup.style.display = "block";
+            popupBackground.style.display = "block";
+        }
+
+        function closePopup() {
+            let popup = document.getElementById("popup");
+            let popupBackground = document.getElementById("popupBackground");
+            popup.style.display = "none";
+            popupBackground.style.display = "none";
+        }
+    </script>
 </head>
 <body>
 <div layout:fragment="content">
@@ -18,7 +71,8 @@
 
     <div class="station-detail-container">
         <div class="prev-station">
-            <button class="station-button" th:each="previousStationInformation : ${arrivalInformationResponse.previousStationInformationList}" th:onclick="|location.href='@{/arrival-information/{subwayId}/{stationId}(subwayId=${subwayStationLineType.name}, stationId=${previousStationInformation.stationId})}'|">
+            <button class="station-button" th:each="previousStationInformation : ${arrivalInformationResponse.previousStationInformationList}"
+                    th:onclick="|location.href='@{/arrival-information/{subwayId}/{stationId}(subwayId=${subwayStationLineType.name}, stationId=${previousStationInformation.stationId})}'|">
                 <span class="arrow-icon left">&#9664;</span>
                 <span class="station-name" th:text="${previousStationInformation.stationName}">이전 역</span>
             </button>
@@ -27,7 +81,8 @@
             <span class="station-name" th:text="${arrivalInformationResponse.currentStationInformation.stationName}">현재 역</span>
         </div>
         <div class="next-station">
-            <button class="station-button" th:each="nextStationInformation : ${arrivalInformationResponse.nextStationInformationList}" th:onclick="|location.href='@{/arrival-information/{subwayId}/{stationId}(subwayId=${subwayStationLineType.name}, stationId=${nextStationInformation.stationId})}'|">
+            <button class="station-button" th:each="nextStationInformation : ${arrivalInformationResponse.nextStationInformationList}"
+                    th:onclick="|location.href='@{/arrival-information/{subwayId}/{stationId}(subwayId=${subwayStationLineType.name}, stationId=${nextStationInformation.stationId})}'|">
                 <span class="station-name" th:text="${nextStationInformation.stationName}">다음 역</span>
                 <span class="arrow-icon right">&#9654;</span>
             </button>
@@ -39,14 +94,14 @@
             <div class="arrival-time"
                  th:if="${!subwayStationLineType.name.equals('LINE_1002') && !subwayStationLineType.name.equals('LINE_1003')}"
                  th:each="upLineArrivalInformation : ${arrivalInformationResponse.upLineArrivalInformationList}"
-                 th:onclick="alert('서비스 준비 중입니다.')">
+                 th:onclick="|alert('서비스 준비 중입니다.');|">
                 <span class="station-arrival-name" th:text="|${upLineArrivalInformation.terminusStationName}행 - ${upLineArrivalInformation.currentStationName}|">신도림</span>
                 <span class="station-arrival-remaining-time" th:text="${upLineArrivalInformation.etaString}">3분</span>
             </div>
             <div class="arrival-time"
                  th:if="${subwayStationLineType.name.equals('LINE_1002') || subwayStationLineType.name.equals('LINE_1003')}"
                  th:each="upLineArrivalInformation : ${arrivalInformationResponse.upLineArrivalInformationList}"
-                 th:onclick="|location.href='@{/congestion/{trainNo}(trainNo=${upLineArrivalInformation.trainNo})}'|">
+                 th:attr="onclick=|getCongestion('${subwayStationLineType.name}', '${upLineArrivalInformation.trainNo}')|">
                 <span class="station-arrival-name" th:text="|${upLineArrivalInformation.terminusStationName}행 - ${upLineArrivalInformation.currentStationName}|">신도림</span>
                 <span class="station-arrival-remaining-time" th:text="${upLineArrivalInformation.etaString}">3분</span>
             </div>
@@ -54,18 +109,43 @@
         <div class="direction-block">
             <h3>하행/외선 방면</h3>
             <div class="arrival-time"
-                 th:if="${subwayStationLineType.name.equals('LINE_1002') || subwayStationLineType.name.equals('LINE_1003')}"
+                 th:if="${!subwayStationLineType.name.equals('LINE_1002') && !subwayStationLineType.name.equals('LINE_1003')}"
                  th:each="downLineArrivalInformation : ${arrivalInformationResponse.downLineArrivalInformationList}"
                  th:onclick="alert('서비스 준비 중입니다.')">
                 <span class="station-arrival-name" th:text="|${downLineArrivalInformation.terminusStationName}행 - ${downLineArrivalInformation.currentStationName}|">신도림</span>
                 <span class="station-arrival-remaining-time" th:text="${downLineArrivalInformation.etaString}">3분</span>
             </div>
             <div class="arrival-time"
-                 th:if="${!subwayStationLineType.name.equals('LINE_1002') && !subwayStationLineType.name.equals('LINE_1003')}"
+                 th:if="${subwayStationLineType.name.equals('LINE_1002') || subwayStationLineType.name.equals('LINE_1003')}"
                  th:each="downLineArrivalInformation : ${arrivalInformationResponse.downLineArrivalInformationList}"
-                 th:onclick="|location.href='@{/congestion/{trainNo}(trainNo=${downLineArrivalInformation.trainNo})}'|">
+                 th:attr="onclick=|getCongestion('${subwayStationLineType.name}', '${downLineArrivalInformation.trainNo}')|">
                 <span class="station-arrival-name" th:text="|${downLineArrivalInformation.terminusStationName}행 - ${downLineArrivalInformation.currentStationName}|">신도림</span>
                 <span class="station-arrival-remaining-time" th:text="${downLineArrivalInformation.etaString}">3분</span>
+            </div>
+        </div>
+    </div>
+    <div class="popup-background" id="popupBackground" onclick="closePopup()"></div>
+    <div class="popup" id="popup">
+        <div class="popup-close" onclick="closePopup()">닫기</div>
+        <div class="popup-content">
+            <div class="container mt-3">
+                <h2 class="mb-3">혼잡도 현황</h2>
+                <div class="d-flex flex-row justify-content-start mb-2" id="congestionDiv">
+                    <div class="train free">1</div>
+                    <div class="train free">2</div>
+                    <div class="train free">3</div>
+                    <div class="train normal">4</div>
+                    <div class="train normal">5</div>
+                    <div class="train caution">6</div>
+                    <div class="train congested">7</div>
+                    <div class="train free">8</div>
+                </div>
+                <div>
+                    <span class="status-indicator free">여유</span>
+                    <span class="status-indicator normal">보통</span>
+                    <span class="status-indicator caution">주의</span>
+                    <span class="status-indicator congested">혼잡</span>
+                </div>
             </div>
         </div>
     </div>

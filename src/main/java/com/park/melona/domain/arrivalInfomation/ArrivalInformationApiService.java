@@ -19,15 +19,15 @@ public class ArrivalInformationApiService {
 
 	private final String REAL_TIME_URL;
 
-	private final String OPENAPI_REAL_TIME_KEY;
+	private final String OPEN_API_REAL_TIME_KEY;
 
 	private final Long REAL_TIME_ARRIVAL_LIST_TOTAL;
 
-	public ArrivalInformationApiService(RestTemplate restTemplate, @Value("${openapi.real-time-base-url}") String realTimeBaseUrl, @Value("${openapi.real-time-url}") String realTimeUrl, @Value("${openapi.real-time-api-key}") String openapiRealTimeKey, @Value("${openapi.real-time-arrival-list-total}") Long realTimeArrivalListTotal) {
+	public ArrivalInformationApiService(RestTemplate restTemplate, @Value("${open-api.real-time-base-url}") String realTimeBaseUrl, @Value("${open-api.real-time-url}") String realTimeUrl, @Value("${open-api.real-time-api-key}") String openApiRealTimeKey, @Value("${open-api.real-time-arrival-list-total}") Long realTimeArrivalListTotal) {
 		this.restTemplate = restTemplate;
 		REAL_TIME_BASE_URL = realTimeBaseUrl;
 		REAL_TIME_URL = realTimeUrl;
-		OPENAPI_REAL_TIME_KEY = openapiRealTimeKey;
+		OPEN_API_REAL_TIME_KEY = openApiRealTimeKey;
 		REAL_TIME_ARRIVAL_LIST_TOTAL = realTimeArrivalListTotal;
 	}
 
@@ -51,7 +51,7 @@ public class ArrivalInformationApiService {
 	public ArrivalInformationApiResponse getArrivalInformationApi(String stationName, Long totalSize) {
 		URI uri = UriComponentsBuilder
 				.fromUri(URI.create(REAL_TIME_BASE_URL + REAL_TIME_URL))
-				.pathSegment(OPENAPI_REAL_TIME_KEY, "json", "realtimeStationArrival", "0", String.valueOf(totalSize), stationName)
+				.pathSegment(OPEN_API_REAL_TIME_KEY, "json", "realtimeStationArrival", "0", String.valueOf(totalSize), stationName)
 				.encode()
 				.build()
 				.toUri();
