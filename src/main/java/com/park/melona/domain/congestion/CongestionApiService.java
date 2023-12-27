@@ -3,6 +3,7 @@ package com.park.melona.domain.congestion;
 import com.park.melona.domain.subwayStation.SubwayStationLineType;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -31,7 +32,7 @@ public class CongestionApiService {
 		SK_API_KEY = skApiKey;
 	}
 
-	//@Cacheable(cacheNames = "arrivalInformationApi", key = "#subwayId + #trainNo")
+	@Cacheable(cacheNames = "arrivalInformationApi", key = "#subwayId + #trainNo")
 	public CongestionApiResponse getArrivalInformationApiCache(String subwayId, Long trainNo) {
 
 		// 2호선, 3호선만 제공
