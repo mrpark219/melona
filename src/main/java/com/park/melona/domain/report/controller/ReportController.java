@@ -1,4 +1,4 @@
-package com.park.melona.domain.report;
+package com.park.melona.domain.report.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
